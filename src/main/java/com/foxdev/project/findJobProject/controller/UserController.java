@@ -36,6 +36,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+    //@Todo: update method will be complete later.
     @PutMapping("{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return this.userService.updateUser(id, user);
