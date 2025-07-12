@@ -10,6 +10,7 @@ import com.foxdev.project.findJobProject.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +21,14 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
         if (user == null || user.getId() != null) throw new InvalidRequestException("Invalid data provided");
         if (this.userRepository.existsByEmail(user.getEmail())) throw new UserAlreadyExistedException("Email " +user.getEmail() + " already exists");
+
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
         return this.userRepository.save(user);
     }
@@ -41,6 +45,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = this.userRepository.findById(id);
 
         return optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        return user.orElse(null);
     }
 
     @Override
