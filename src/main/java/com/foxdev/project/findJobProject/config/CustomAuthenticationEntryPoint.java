@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -30,7 +31,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         ApiResponse<Object> apiResponse = new ApiResponse<>();
         apiResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        apiResponse.setError(authException.getCause().getMessage());
+        String errorMessage  = Optional.ofNullable(authException.getCause())
+                        .map(Throwable::getMessage)
+                        .orElse(authException.getMessage());
+        apiResponse.setError(errorMessage);
         apiResponse.setMessage("Unauthorized");
         apiResponse.setTimestamp(LocalDateTime.now());
 
