@@ -1,7 +1,7 @@
-package com.foxdev.project.findJobProject.domain.dto;
+package com.foxdev.project.findJobProject.domain.dto.company;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +12,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LoginDTO {
-    @Email
-    @NotBlank(message = "Email can not be blank")
-    String email;
-    @NotBlank(message = "Invalid credentials")
-    String password;
+public class PostCompanyDTO {
+    @NotBlank(message = "Tên công không được để trống")
+    String name;
+    String description;
+    String address;
+    String logo;
 }

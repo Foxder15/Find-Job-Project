@@ -1,4 +1,4 @@
-package com.foxdev.project.findJobProject.domain.dto;
+package com.foxdev.project.findJobProject.domain.dto.auth;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }
 
-    @ExceptionHandler(UserAlreadyExistedException.class)
-    public ResponseEntity<ApiResponse<String>> handleException(UserAlreadyExistedException e) {
+    @ExceptionHandler({UserAlreadyExistedException.class, CompanyAlreadyExistedException.class})
+    public ResponseEntity<ApiResponse<String>> handleException(Exception e) {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setStatus(HttpStatus.CONFLICT.value());
         apiResponse.setError(HttpStatus.CONFLICT.getReasonPhrase());
@@ -50,6 +50,7 @@ public class GlobalExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .toList();
         apiResponse.setData(errors.toString());
+        apiResponse.setTimestamp(LocalDateTime.now());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }

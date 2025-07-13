@@ -1,7 +1,7 @@
 package com.foxdev.project.findJobProject.controller;
 
-import com.foxdev.project.findJobProject.domain.dto.LoginDTO;
-import com.foxdev.project.findJobProject.domain.dto.ResLoginDTO;
+import com.foxdev.project.findJobProject.domain.dto.auth.LoginDTO;
+import com.foxdev.project.findJobProject.domain.dto.auth.ResLoginDTO;
 import com.foxdev.project.findJobProject.util.SecurityUtils;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
